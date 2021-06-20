@@ -9,6 +9,7 @@ if (isset($_POST['submit'])) {
 $username = $_POST['USname'];
 $pwd = $_POST['pwd'];
 
+// Error handler for empty inputs
 if (empty($username) || empty($pwd)) {
   header("location: ../index.php?error=emptyinputs");
   exit();
@@ -17,12 +18,14 @@ if (empty($username) || empty($pwd)) {
     $result = mysqli_query($conn, $sql);
     $resultCheck = mysqli_affected_rows($conn);
 
+    // Check the inputed data if exists
     if ($resultCheck < 1) {
       header("location: ../index.php?error=signin");
       exit();
     } else {
       if ($row = mysqli_fetch_assoc($result)) {
 
+        // Error handler for password
         if ($pwd == false) {
           header("location: ../index.php?error=signin");
           exit();
